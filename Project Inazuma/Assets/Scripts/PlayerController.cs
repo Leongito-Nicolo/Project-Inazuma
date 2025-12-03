@@ -4,13 +4,14 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private float _speed;
     private Vector2 currentDir;
     private Vector2 startPosition;
     private Vector2 currentPosition;
     private bool shouldMove;
     private Rigidbody rb;
 
-    public int i = 0;
+    private int i = 0;
 
     void Start()
     {
@@ -22,7 +23,7 @@ public class PlayerController : MonoBehaviour
         if (shouldMove)
         {
             Vector3 dir = new(currentDir.x, 0, currentDir.y);
-            rb.MovePosition(transform.position + 4f * Time.fixedDeltaTime * dir);
+            rb.MovePosition(transform.position + _speed * Time.fixedDeltaTime * dir);
         }
     }
 

@@ -638,10 +638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a14f016a8e7e2e4386e596a68f7c076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  currentDir: {x: 0, y: 0}
-  startPosition: {x: 0, y: 0}
-  currentPosition: {x: 0, y: 0}
-  shouldMove: 0
+  _speed: 4
 --- !u!114 &495387534
 MonoBehaviour:
   m_ObjectHideFlags: 0
