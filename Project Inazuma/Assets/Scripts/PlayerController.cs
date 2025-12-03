@@ -5,13 +5,18 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float _speed;
+    [SerializeField] private Transform _ballPos;
     private Vector2 currentDir;
     private Vector2 startPosition;
     private Vector2 currentPosition;
     private bool shouldMove;
     private Rigidbody rb;
 
+    private Ball ball;
+
     private int i = 0;
+    private bool hasBall;
+    private Vector2 screenPos;
 
     void Start()
     {
@@ -24,7 +29,31 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 dir = new(currentDir.x, 0, currentDir.y);
             rb.MovePosition(transform.position + _speed * Time.fixedDeltaTime * dir);
+            transform.LookAt(transform.position + dir);
         }
+
+    }
+
+    public void Tap(InputAction.CallbackContext context)
+    {
+        if (!hasBall) return;
+
+        if (context.performed)
+        {
+
+            Ray ray = Camera.main.ScreenPointToRay(screenPos);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+
+                Vector3 direction = (hit.point - transform.position).normalized;
+                Debug.Log(hit.point - transform.position);
+                ball.transform.SetParent(null);
+                ball.Launch(direction);
+                hasBall = false;
+
+            }
+        }
+
     }
 
     public void Press(InputAction.CallbackContext context)
@@ -51,6 +80,7 @@ public class PlayerController : MonoBehaviour
             if (i == 0)
             {
                 startPosition = context.ReadValue<Vector2>();
+                screenPos = startPosition;
                 i++;
             }
 
@@ -58,6 +88,18 @@ public class PlayerController : MonoBehaviour
             currentDir = (currentPosition - startPosition).normalized;
         }
 
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Ball"))
+        {
+            hasBall = true;
+            ball = collision.gameObject.GetComponent<Ball>();
+            collision.gameObject.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
+            collision.gameObject.transform.SetParent(transform);
+            ball.transform.position = _ballPos.position;
+        }
     }
 
 
