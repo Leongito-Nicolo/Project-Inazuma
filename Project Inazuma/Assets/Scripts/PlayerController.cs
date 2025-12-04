@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float _speed;
-    public Transform _ballPos;
+    public Transform ballPos;
     private Vector2 currentDir;
     private Vector2 startPosition;
     private Vector2 currentPosition;
@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
 
         if (hasBall)
         {
-            ball.transform.position = _ballPos.position;
+            ball.transform.position = ballPos.position;
         }
 
     }

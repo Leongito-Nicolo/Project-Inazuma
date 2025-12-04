@@ -734,6 +734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Test
   _speed: 5
+  hasPlayer: 0
 --- !u!1 &495387528
 GameObject:
   m_ObjectHideFlags: 0
@@ -866,7 +867,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   _speed: 8
-  _ballPos: {fileID: 1444329677}
+  ballPos: {fileID: 1444329677}
+  hasBall: 0
 --- !u!114 &495387534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1365,7 +1367,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   _speed: 8
-  _ballPos: {fileID: 125024468}
+  ballPos: {fileID: 125024468}
+  hasBall: 0
 --- !u!114 &1694893063
 MonoBehaviour:
   m_ObjectHideFlags: 0
