@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float _speed;
-    [SerializeField] private Transform _ballPos;
+    public Transform _ballPos;
     private Vector2 currentDir;
     private Vector2 startPosition;
     private Vector2 currentPosition;
@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     private Ball ball;
 
     private int i = 0;
-    private bool hasBall;
+    public bool hasBall;
     private Vector2 screenPos;
 
     void Start()
@@ -99,13 +99,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Ball"))
         {
-            hasBall = true;
             ball = other.gameObject.GetComponent<Ball>();
-            Rigidbody ballRb = other.gameObject.GetComponent<Rigidbody>();
-            ballRb.linearVelocity = Vector3.zero;
-            ballRb.angularVelocity = Vector3.zero;
-            other.gameObject.transform.SetParent(transform);
-            ball.transform.position = _ballPos.position;
         }
     }
 
