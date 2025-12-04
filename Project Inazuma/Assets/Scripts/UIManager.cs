@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
 
     public void ShowWin()
     {
+        winText.gameObject.SetActive(true);
         winText.text = "Goal!!!!";
     }
 

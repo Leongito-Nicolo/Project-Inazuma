@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,7 +21,13 @@ public class GameManager : MonoBehaviour
 
     public void Win()
     {
+        StartCoroutine(Victory());
+    }
+
+    private IEnumerator Victory()
+    {
         _ui.ShowWin();
+        yield return new WaitForSeconds(3f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
