@@ -15,11 +15,6 @@ public class Ball : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    void FixedUpdate()
-    {
-
-    }
-
     public void Launch(Vector3 direction)
     {
         rb.AddForce((direction + Vector3.up) * _speed, ForceMode.Impulse);
@@ -28,10 +23,9 @@ public class Ball : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (hasPlayer) return;
-
         if (other.CompareTag("Player"))
         {
+            if (hasPlayer) return;
             hasPlayer = true;
             var playerInstance = other.gameObject.GetComponent<PlayerInput>();
             var playerMov = other.gameObject.GetComponent<PlayerController>();
@@ -56,6 +50,11 @@ public class Ball : MonoBehaviour
                     player = playerInstance;
                 }
             }
+        }
+
+        if (other.CompareTag("Goal"))
+        {
+            GameManager.Instance.Win();
         }
     }
 }
