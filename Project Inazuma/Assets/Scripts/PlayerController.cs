@@ -32,6 +32,11 @@ public class PlayerController : MonoBehaviour
             transform.LookAt(transform.position + dir);
         }
 
+        if (hasBall)
+        {
+            ball.transform.position = _ballPos.position;
+        }
+
     }
 
     public void Tap(InputAction.CallbackContext context)
@@ -45,11 +50,11 @@ public class PlayerController : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
 
+                hasBall = false;
                 Vector3 direction = (hit.point - transform.position).normalized;
                 Debug.Log(hit.point - transform.position);
                 ball.transform.SetParent(null);
                 ball.Launch(direction);
-                hasBall = false;
 
             }
         }
@@ -90,14 +95,16 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider other)
     {
-        if (collision.collider.CompareTag("Ball"))
+        if (other.CompareTag("Ball"))
         {
             hasBall = true;
-            ball = collision.gameObject.GetComponent<Ball>();
-            collision.gameObject.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
-            collision.gameObject.transform.SetParent(transform);
+            ball = other.gameObject.GetComponent<Ball>();
+            Rigidbody ballRb = other.gameObject.GetComponent<Rigidbody>();
+            ballRb.linearVelocity = Vector3.zero;
+            ballRb.angularVelocity = Vector3.zero;
+            other.gameObject.transform.SetParent(transform);
             ball.transform.position = _ballPos.position;
         }
     }
